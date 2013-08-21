@@ -1,0 +1,39 @@
+" Experimental version Vimrc
+" I kept all other settings in plugins/settings directory
+"
+" Eddie Kao
+" http://blog.eddie.com.tw
+" eddie@digik.com.tw
+
+" toogle to keep the cursor in the center of the window
+function! ToggleZZMode()
+  if exists("g:eddie_zz_mode")
+    if g:eddie_zz_mode == 1
+      let g:eddie_zz_mode=0
+      let &scrolloff=3
+      echo "Switch to Normal Mode"
+    else
+      let g:eddie_zz_mode=1
+      let &scrolloff=999-&scrolloff
+      echo "Switch to ZZ Mode"
+    end
+  else
+    let g:eddie_zz_mode=1
+    let &scrolloff=999-&scrolloff
+    echo "Switch to ZZ Mode"
+  end
+endfunction
+
+if filereadable(expand("~/.vim/pro-vimrc"))
+  " load pro-vimrc first
+  source ~/.vim/pro-vimrc
+  " some experimental settings
+  set nomodeline
+  set notimeout
+  set ttimeout
+  set ttimeoutlen=10
+  set shell=zsh
+  nnoremap <leader>mm :call ToggleZZMode()<CR>
+else
+  echo "~/.vim/pro-vimrc doesn't exist"
+endif
